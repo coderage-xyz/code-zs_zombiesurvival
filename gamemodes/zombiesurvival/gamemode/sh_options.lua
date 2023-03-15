@@ -765,3 +765,6 @@ GM.EndWavePointsBonus = 5
 
 -- Also give humans this many points when the wave ends, multiplied by (wave - 1)
 GM.EndWavePointsBonusPerWave = 1
+
+-- Change the key for rotating props
+GM.PropRotKeyVar = CreateConVar("zs_proprotationkey", IN_WALK, FCVAR_REPLICATED, "From the IN_ enum values that can be found on the wiki")
