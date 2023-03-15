@@ -12,7 +12,7 @@ function ENT:Move(pl, mv)
 		--if objectphys:IsValid() then
 			mv:SetMaxSpeed(math.max(
 				mv:GetMaxSpeed() / 4,
-				mv:GetMaxSpeed() - self:GetObjectMass() * CARRY_SPEEDLOSS_PERKG * pl.PropCarrySlowMul)
+				mv:GetMaxSpeed() - self:GetObjectMass() --[[* CARRY_SPEEDLOSS_PERKG * pl.PropCarrySlowMul]])
 			)
 			mv:SetMaxClientSpeed(mv:GetMaxSpeed())
 		--end
