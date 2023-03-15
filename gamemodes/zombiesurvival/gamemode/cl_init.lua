@@ -1290,36 +1290,40 @@ function surface.CreateLegacyFont(font, size, weight, antialias, additive, name,
 	surface.CreateFont(name, {font = font, size = size, weight = weight, antialias = antialias, additive = additive, shadow = shadow, outline = outline, blursize = blursize})
 end
 
-local fontfamily = "Ghoulish Fright AOE"
-local fontfamilysm = "Remington Noiseless"
-local fontfamily3d = "hidden"
-local fontsizeadd = 8
-local fontweight = 0
+GM.FontFamily = "Ghoulish Fright AOE"
+GM.FontFamilySm = "Remington Noiseless"
+GM.FontFamily3D = "hidden"
+GM.FontSizeAdd = 8
+GM.FontWeight = 0
+
+GM.FontSizeAdd3D = 0
+GM.FontWeight3D = 0
+
+GM.FontAA = true
+GM.FontShadow = false
+GM.FontOutline = true
 
 function GM:Create3DFonts()
-	local fontsizeadd3D = 0
-	local fontweight3D = 0
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 28 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFontSmaller", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 48 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFontSmall", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 72 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFont", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 128 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFontBig", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 28 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFontSmallerBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 48 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFontSmallBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 72 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFontBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily3D, 128 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFontBigBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 40 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFont2Smaller", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 48 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFont2Small", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 72 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFont2", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 128 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFont2Big", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 40 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFont2SmallerBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 48 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DFont2SmallBlur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 72 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFont2Blur", false, false, 16)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, 128 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false, "ZS3D2DFont2BigBlur", false, false, 16)
 
-	surface.CreateLegacyFont(fontfamily3d, 28 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFontSmaller", false, true)
-	surface.CreateLegacyFont(fontfamily3d, 48 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFontSmall", false, true)
-	surface.CreateLegacyFont(fontfamily3d, 72 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFont", false, true)
-	surface.CreateLegacyFont(fontfamily3d, 128 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFontBig", false, true)
-	surface.CreateLegacyFont(fontfamily3d, 28 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFontSmallerBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily3d, 48 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFontSmallBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily3d, 72 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFontBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily3d, 128 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFontBigBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily, 40 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFont2Smaller", false, true)
-	surface.CreateLegacyFont(fontfamily, 48 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFont2Small", false, true)
-	surface.CreateLegacyFont(fontfamily, 72 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFont2", false, true)
-	surface.CreateLegacyFont(fontfamily, 128 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFont2Big", false, true)
-	surface.CreateLegacyFont(fontfamily, 40 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFont2SmallerBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily, 48 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DFont2SmallBlur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily, 72 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFont2Blur", false, false, 16)
-	surface.CreateLegacyFont(fontfamily, 128 + fontsizeadd3D, fontweight3D, false, false, "ZS3D2DFont2BigBlur", false, false, 16)
-
-	surface.CreateLegacyFont(fontfamilysm, 14 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DUnstyleTiny", false, true)
-	surface.CreateLegacyFont(fontfamilysm, 24 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DUnstyleSmallest", false, true)
-	surface.CreateLegacyFont(fontfamilysm, 36 + fontsizeadd3D, fontweight3D, false, false,  "ZS3D2DUnstyleSmaller", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, 14 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DUnstyleTiny", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, 24 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DUnstyleSmallest", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, 36 + GAMEMODE.FontSizeAdd3D, GAMEMODE.FontWeight3D, false, false,  "ZS3D2DUnstyleSmaller", false, true)
 end
 
 function GM:CreateNonScaleFonts()
@@ -1339,10 +1343,6 @@ function GM:CreateNonScaleFonts()
 end
 
 function GM:CreateScalingFonts()
-	local fontaa = true
-	local fontshadow = false
-	local fontoutline = true
-
 	local screenscale = BetterScreenScale()
 
 	surface.CreateLegacyFont("csd", screenscale * 42, 100, true, false, "zsdeathnoticecs", false, false)
@@ -1354,44 +1354,44 @@ function GM:CreateScalingFonts()
 	surface.CreateLegacyFont("csd", screenscale * 72, 100, true, false, "zsdeathnoticecspa", false, false)
 	surface.CreateLegacyFont("HL2MP", screenscale * 72, 100, true, false, "zsdeathnoticepa", false, false)
 
-	surface.CreateLegacyFont(fontfamily, screenscale * (16 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontTiny", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (20 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallest", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (22 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmaller", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (28 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmall", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (42 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFont", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (72 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontBig", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamily, screenscale * (16 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontTinyBlur", false, false, 8)
-	surface.CreateLegacyFont(fontfamily, screenscale * (22 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallerBlur", false, false, 8)
-	surface.CreateLegacyFont(fontfamily, screenscale * (28 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallBlur", false, false, 8)
-	surface.CreateLegacyFont(fontfamily, screenscale * (42 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontBlur", false, false, 8)
-	surface.CreateLegacyFont(fontfamily, screenscale * (72 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontBigBlur", false, false, 8)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (16 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontTiny", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (20 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallest", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (22 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmaller", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (28 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmall", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (42 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFont", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (72 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontBig", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (16 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontTinyBlur", false, false, 8)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (22 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallerBlur", false, false, 8)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (28 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallBlur", false, false, 8)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (42 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontBlur", false, false, 8)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (72 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontBigBlur", false, false, 8)
 
-	surface.CreateLegacyFont(fontfamily, screenscale * (20 + fontsizeadd/2), 0, fontaa, false, "ZSAmmoName", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (20 + GAMEMODE.FontSizeAdd/2), 0, GAMEMODE.FontAA, false, "ZSAmmoName", false, false)
 
 	local liscreenscale = math.max(0.95, BetterScreenScale())
 
-	surface.CreateLegacyFont(fontfamily, liscreenscale * (32 + fontsizeadd), fontweight, true, false, "ZSScoreBoardTitle", false, true)
-	surface.CreateLegacyFont(fontfamily, liscreenscale * (22 + fontsizeadd), fontweight, true, false, "ZSScoreBoardSubTitle", false, true)
-	surface.CreateLegacyFont(fontfamily, liscreenscale * (16 + fontsizeadd), fontweight, true, false, "ZSScoreBoardPlayer", false, true)
-	surface.CreateLegacyFont(fontfamily, liscreenscale * (24 + fontsizeadd), fontweight, true, false, "ZSScoreBoardHeading", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, liscreenscale * (32 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, true, false, "ZSScoreBoardTitle", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, liscreenscale * (22 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, true, false, "ZSScoreBoardSubTitle", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, liscreenscale * (16 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, true, false, "ZSScoreBoardPlayer", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, liscreenscale * (24 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, true, false, "ZSScoreBoardHeading", false, false)
 	surface.CreateLegacyFont("arial", 18 * liscreenscale, 0, true, false, "ZSScoreBoardPlayerSmall", false, true)
 	surface.CreateLegacyFont("arial", 15 * liscreenscale, 0, true, false, "ZSScoreBoardPlayerSmaller", false, true)
 	surface.CreateLegacyFont("tahoma", 11 * liscreenscale, 0, true, false, "ZSScoreBoardPing")
 
-	surface.CreateLegacyFont(fontfamily, screenscale * (16 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontTinyNS", false, false)
-	surface.CreateLegacyFont(fontfamily, screenscale * (20 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallestNS", false, false)
-	surface.CreateLegacyFont(fontfamily, screenscale * (22 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallerNS", false, false)
-	surface.CreateLegacyFont(fontfamily, screenscale * (28 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontSmallNS", false, false)
-	surface.CreateLegacyFont(fontfamily, screenscale * (42 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontNS", false, false)
-	surface.CreateLegacyFont(fontfamily, screenscale * (72 + fontsizeadd), fontweight, fontaa, false, "ZSHUDFontBigNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (16 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontTinyNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (20 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallestNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (22 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallerNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (28 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontSmallNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (42 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontNS", false, false)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (72 + GAMEMODE.FontSizeAdd), GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSHUDFontBigNS", false, false)
 
-	surface.CreateLegacyFont(fontfamilysm, screenscale * 13, fontweight, fontaa, false, "ZSBodyTextFontSmall", fontshadow)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, screenscale * 13, GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSBodyTextFontSmall", GAMEMODE.FontShadow)
 
-	surface.CreateLegacyFont(fontfamilysm, screenscale * 15, fontweight, fontaa, false, "ZSBodyTextFont", fontshadow, fontoutline)
-	surface.CreateLegacyFont(fontfamilysm, screenscale * 20, fontweight, fontaa, false, "ZSBodyTextFontBig", fontshadow, fontoutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, screenscale * 15, GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSBodyTextFont", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
+	surface.CreateLegacyFont(GAMEMODE.FontFamilySm, screenscale * 20, GAMEMODE.FontWeight, GAMEMODE.FontAA, false, "ZSBodyTextFontBig", GAMEMODE.FontShadow, GAMEMODE.FontOutline)
 
-	surface.CreateLegacyFont(fontfamily, screenscale * (20 + fontsizeadd), 0, true, false, "ZSDamageResistance", false, true)
-	surface.CreateLegacyFont(fontfamily, screenscale * (20 + fontsizeadd), 0, true, false, "ZSDamageResistanceBlur", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (20 + GAMEMODE.FontSizeAdd), 0, true, false, "ZSDamageResistance", false, true)
+	surface.CreateLegacyFont(GAMEMODE.FontFamily, screenscale * (20 + GAMEMODE.FontSizeAdd), 0, true, false, "ZSDamageResistanceBlur", false, true)
 
 	surface.CreateFont("ZSXPBar", {font = "tahoma", size = screenscale * 14, weight = 500, antialias = false, shadow = true})
 end
