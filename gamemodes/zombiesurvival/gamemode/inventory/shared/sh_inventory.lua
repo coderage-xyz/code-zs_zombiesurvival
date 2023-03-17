@@ -490,3 +490,6 @@ trinket, trinketwep = GM:AddTrinket("Chemistry Set", "chemistry", false, hpveles
 GM:AddSkillModifier(trinket, SKILLMOD_MEDKIT_EFFECTIVENESS_MUL, 0.06)
 GM:AddSkillModifier(trinket, SKILLMOD_CLOUD_TIME, 0.12)
 trinketwep.PermitDismantle = true
+
+-- code-zs_zombiesurvival additions
+GM:AddTrinket("Ripped", "ripped", false, pveles, pweles, nil, "Someone's been working out at the library...\nYou'll die before another prop gets knocked out of your hands.")

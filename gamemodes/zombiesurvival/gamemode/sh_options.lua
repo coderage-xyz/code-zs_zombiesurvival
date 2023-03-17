@@ -292,6 +292,10 @@ GM:AddStartingItem("nanitecloud",		ITEMCAT_OTHER,			25,				"weapon_zs_naniteclou
 item.SkillRequirement = SKILL_U_NANITECLOUD
 GM:AddStartingItem("bloodshot",			ITEMCAT_OTHER,			35,				"weapon_zs_bloodshotbomb")
 
+-- code-zs_zombiesurvival fork additions
+
+GM:AddStartingItem("ripped",			ITEMCAT_TRINKETS,		10,				"trinket_ripped").SubCategory =					ITEMSUBCAT_TRINKETS_PERFORMANCE
+
 ------------
 -- Points --
 ------------
@@ -576,6 +580,9 @@ item.SkillRequirement = SKILL_U_MEDICCLOUD
 item =
 GM:AddPointShopItem("nanitecloud",		ITEMCAT_OTHER,			40,				"weapon_zs_nanitecloudbomb")
 item.SkillRequirement = SKILL_U_NANITECLOUD
+
+-- coderage-xyz_zombiesurvival fork additions
+GM:AddPointShopItem("ripped",			ITEMCAT_TRINKETS,		35,				"trinket_ripped").SubCategory =									ITEMSUBCAT_TRINKETS_PERFORMANCE
 
 -- These are the honorable mentions that come at the end of the round.
 
