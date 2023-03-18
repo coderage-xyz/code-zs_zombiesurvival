@@ -105,7 +105,12 @@ local function ApplyWeaponModifier(modinfo, wept, datatab, remantledescs, i)
 			basestat = mtbl[var]
 			newstat = basestat + datatab.Amount * qfactor
 
-			mtbl[var] = newstat
+			-- Support TFA's SWEP.Primary.RPM
+			if var == "Delay" and (scripted_ents.IsBasedOn(mtbl.ClassName, "tfa_gun_base") or scripted_ents.IsBasedOn(mtbl.ClassName, "tfa_melee_base")) then
+				mtbl.RPM = newstat * 3600.0
+			else
+				mtbl[var] = newstat
+			end
 
 			if not displayed and qfactor > 0 then
 				local ispos = datatab.Amount > 0 and "+" or ""
