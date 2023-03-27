@@ -52,6 +52,7 @@ include("vgui/dspawnmenu.lua")
 include("vgui/zsgamestate.lua")
 include("vgui/zshealtharea.lua")
 include("vgui/zsstatusarea.lua")
+include("vgui/zsoptions.lua")
 
 include("cl_dermaskin.lua")
 include("cl_deathnotice.lua")
