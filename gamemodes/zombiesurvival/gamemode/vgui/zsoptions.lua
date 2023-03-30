@@ -5,20 +5,14 @@ local PANEL = {}
 function PANEL:Init()
 	BaseClass.Init(self)
 
-	local wide = math.min(ScrW(), 500)
-	local tall = math.min(ScrH(), 800)
-
-	local y = 8
-
 	self.label = EasyLabel(self, "Options", "ZSScoreBoardTitle", color_white)
-	self.label:SetPos(wide * 0.5 - self.label:GetWide() * 0.5, y)
-	y = y + self.label:GetTall() + 8
+	self.label:Dock(TOP)
+	self.label:SetContentAlignment(5)
 
 	self.list = vgui.Create("DPanelList", self)
 	self.list:EnableVerticalScrollbar()
 	self.list:EnableHorizontal(false)
-	self.list:SetSize(wide - 24, tall - y - 12)
-	self.list:SetPos(12, y)
+	self.list:Dock(FILL)
 	self.list:SetPadding(8)
 	self.list:SetSpacing(4)
 
