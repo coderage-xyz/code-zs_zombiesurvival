@@ -860,7 +860,7 @@ function GM:HumanHUD(screenscale)
 	end
 
 	if not self.RoundEnded then
-		if self:GetWave() == 0 and not self:GetWaveActive() then
+		if self:GetWave() == 0 and not self:GetWaveActive() and self.WaitingForPlayersHUDEnabled:GetBool() then
 			local txth = draw_GetFontHeight("ZSHUDFontSmall")
 			local desiredzombies = self:GetDesiredStartingZombies()
 

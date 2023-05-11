@@ -327,3 +327,5 @@ GM.ValidBeaconMessages = {
 	"message_beacon_24",
 	"message_beacon_25"
 }
+
+GM.WaitingForPlayersHUDEnabled = CreateConVar("zs_hud_waitingforplayers_enabled", 1, FCVAR_REPLICATED, "Enables the \"Waiting for Players\" text before the first wave")
