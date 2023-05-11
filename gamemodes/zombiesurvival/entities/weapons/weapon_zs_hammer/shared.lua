@@ -41,6 +41,8 @@ SWEP.NoGlassWeapons = true
 
 SWEP.AllowQualityWeapons = true
 
+SWEP.EnabledWhileGhosting = CreateConVar("zs_hammerwhileghosting", 0, {FCVAR_REPLICATED, FCVAR_NOTIFY}, "Permits hammer usage while the user is barricade ghosting (cade-walking)")
+
 GAMEMODE:SetPrimaryWeaponModifier(SWEP, WEAPON_MODIFIER_FIRE_DELAY, -0.04)
 GAMEMODE:AttachWeaponModifier(SWEP, WEAPON_MODIFIER_MELEE_RANGE, 3, 1)
 
