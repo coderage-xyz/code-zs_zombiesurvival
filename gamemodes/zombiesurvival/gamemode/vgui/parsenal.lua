@@ -189,7 +189,7 @@ function GM:SupplyItemViewerDetail(viewer, sweptable, shoptbl)
 		viewer.m_VBG:SetVisible(true)
 
 		if sweptable.NoDismantle then
-			desctext = desctext .. "\nCannot be dismantled for scrap."
+			desctext = desctext .. "\nCannot be sold points."
 		end
 
 		viewer.m_Desc:MoveBelow(viewer.m_VBG, 8)

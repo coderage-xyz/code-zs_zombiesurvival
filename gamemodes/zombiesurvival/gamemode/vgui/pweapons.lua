@@ -39,10 +39,6 @@ local function SetWeaponViewerSWEP(self, swep, category, comps)
 	viewer.ModelPanel:SetLookAt((mins + maxs) / 2)
 	viewer.m_VBG:SetVisible(true)
 
-	if sweptable.NoDismantle then
-		desctext = desctext .. "\nCannot be dismantled for scrap."
-	end
-
 	viewer.m_Desc:MoveBelow(viewer.m_VBG, 8)
 	viewer.m_Desc:SetFont("ZSBodyTextFont")
 	viewer.m_Desc:SetText(desctext)

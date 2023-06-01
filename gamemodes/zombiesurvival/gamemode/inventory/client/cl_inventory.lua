@@ -1,8 +1,9 @@
 GM.ZSInventory = {}
 
-INVCAT_TRINKETS = 1
-INVCAT_COMPONENTS = 2
-INVCAT_CONSUMABLES = 3
+INVCAT_WEAPONS = 1
+INVCAT_TRINKETS = 2
+INVCAT_COMPONENTS = 3
+INVCAT_CONSUMABLES = 4
 
 local meta = FindMetaTable("Player")
 function meta:GetInventoryItems()
@@ -54,13 +55,7 @@ local function ItemPanelDoClick(self)
 	local item = self.Item
 	if not item then return end
 
-	local category, sweptable = self.Category
-	if category == INVCAT_WEAPONS then
-		sweptable = weapons.Get(item)
-	else
-		sweptable = GAMEMODE.ZSInventoryItemData[item]
-	end
-
+	local sweptable = self.Category == INVCAT_WEAPONS and weapons.Get(item) or GAMEMODE.ZSInventoryItemData[item]
 	local viewer = GAMEMODE.m_InvViewer
 	local screenscale = BetterScreenScale()
 
@@ -91,16 +86,14 @@ local function ItemPanelDoClick(self)
 	viewer.m_Title:PerformLayout()
 
 	local desctext = sweptable.Description or ""
-	if category == INVCAT_WEAPONS then
+	if self.Category == INVCAT_WEAPONS then
 		viewer.ModelPanel:SetModel(sweptable.WorldModel)
-		local mins, maxs = viewer.ModelPanel.Entity:GetRenderBounds()
-		viewer.ModelPanel:SetCamPos(mins:Distance(maxs) * Vector(1.15, 0.75, 0.5))
-		viewer.ModelPanel:SetLookAt((mins + maxs) / 2)
-		viewer.m_VBG:SetVisible(true)
-
-		if sweptable.NoDismantle then
-			desctext = desctext .. "\nCannot be dismantled for scrap."
+		if sweptable.WorldModel ~= "" then
+			local mins, maxs = viewer.ModelPanel.Entity:GetRenderBounds()
+			viewer.ModelPanel:SetCamPos(mins:Distance(maxs) * Vector(1.15, 0.75, 0.5))
+			viewer.ModelPanel:SetLookAt((mins + maxs) / 2)
 		end
+		viewer.m_VBG:SetVisible(true)
 
 		viewer.m_Desc:MoveBelow(viewer.m_VBG, 8)
 		viewer.m_Desc:SetFont("ZSBodyTextFont")
@@ -130,7 +123,14 @@ local function ItemPanelDoClick(self)
 	end
 	viewer.m_Desc:SetText(desctext)
 
-	GAMEMODE:ViewerStatBarUpdate(viewer, category ~= INVCAT_WEAPONS, sweptable)
+	local worthItemCategory
+	for _, worthItem in pairs(GAMEMODE.Items) do
+		if worthItem.SWEP == item then
+			worthItemCategory = worthItem.Category
+			break
+		end
+	end
+	GAMEMODE:ViewerStatBarUpdate(viewer, (not worthItemCategory and (self.Category ~= INVCAT_WEAPONS or sweptable.IsFood)) or (worthItemCategory and worthItemCategory ~= ITEMCAT_GUNS and worthItemCategory ~= ITEMCAT_MELEE), sweptable)
 
 	for i = 1, 3 do
 		local crab, cral = viewer.m_CraftBtns[i][1], viewer.m_CraftBtns[i][2]
@@ -175,6 +175,7 @@ local function ItemPanelDoClick(self)
 end
 
 local categorycolors = {
+	[INVCAT_WEAPONS] = {COLOR_GREEN, COLOR_DARKGREEN},
 	[INVCAT_TRINKETS] = {COLOR_RED, COLOR_DARKRED},
 	[INVCAT_COMPONENTS] = {COLOR_BLUE, COLOR_DARKBLUE},
 	[INVCAT_CONSUMABLES] = {COLOR_YELLOW, COLOR_DARKYELLOW}
@@ -274,7 +275,14 @@ function GM:InventoryAddGridItem(item, category)
 		trintier:CenterVertical(0.8)
 	end
 
-	local kitbl = killicon.Get(category == INVCAT_TRINKETS and "weapon_zs_trinket" or "weapon_zs_craftables")
+	local kitbl
+	if category == INVCAT_TRINKETS then
+		kitbl = killicon.Get("weapon_zs_trinket")
+	elseif category == INVCAT_WEAPONS then
+		kitbl = killicon.Get(item)
+	else
+		kitbl = killicon.Get("weapon_zs_craftables")
+	end
 	if kitbl then
 		self:AttachKillicon(kitbl, itempan, mdlframe)
 	end
@@ -314,6 +322,19 @@ function GM:InventoryWipeGrid()
 	self:DoAltSelectedItemUpdate()
 end
 
+local function SelectCurrentWeaponItem()
+	local weapon = LocalPlayer():GetActiveWeapon()
+	if IsValid(weapon) then
+		local weaponClass = weapon:GetClass()
+		for _, itempan in ipairs(GAMEMODE.InventoryMenu.Grid:GetChildren()) do
+			if itempan.Item == weaponClass then
+				ItemPanelDoClick(itempan)
+				break
+			end
+		end
+	end
+end
+
 function GM:OpenInventory()
 	if self.InventoryMenu and self.InventoryMenu:IsValid() then
 		self.InventoryMenu:SetVisible(true)
@@ -321,18 +342,21 @@ function GM:OpenInventory()
 		if self.m_InvViewer and self.m_InvViewer:IsValid() and self.InventoryMenu.SelInv then
 			self.m_InvViewer:SetVisible(true)
 		end
+
+		SelectCurrentWeaponItem()
+
 		return
 	end
 
 	local screenscale = BetterScreenScale()
-	local wid, hei = math.max(400, math.min(ScrW(), 400) * screenscale), math.min(ScrH(), 370) * screenscale
+	local wid, hei = math.max(400, math.min(ScrW(), 400) * screenscale), math.min(ScrH(), 500) * screenscale
 
 	local frame = vgui.Create("DFrame")
 	frame:SetSize(wid, hei)
 	frame:CenterHorizontal(0.385)
-	frame:CenterVertical(0.25)
+	frame:CenterVertical()
 	frame:SetDeleteOnClose(false)
-	frame:SetTitle(" ")
+	frame:SetTitle("")
 	frame:SetDraggable(false)
 
 	if frame.btnClose and frame.btnClose:IsValid() then frame.btnClose:SetVisible(false) end
@@ -373,7 +397,10 @@ function GM:OpenInventory()
 			end
 		end
 	end
+
 	invgrid:SortByMember("Category")
+
+	SelectCurrentWeaponItem()
 
 	frame:MakePopup()
 end

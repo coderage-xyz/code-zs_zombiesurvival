@@ -159,69 +159,45 @@ concommand.Add("zs_pointsshopbuy", function(sender, command, arguments)
 	end
 end)
 
-concommand.Add("zs_dismantle", function(sender, command, arguments)
-	if not (sender:IsValid() and sender:IsConnected() and sender:IsValidLivingHuman()) then return end
-
-	local invitem, itypecat, potinv
-	if #arguments > 0 then
-		invitem = arguments[1]
+concommand.Add("zs_sellitem", function(sender, command, arguments)
+	if not sender:IsValid() or not sender:IsConnected() or not sender:IsValidLivingHuman() then
+		return
 	end
 
-	if invitem and not sender:HasInventoryItem(invitem) then return end
+	local item = arguments[1]
 
-	local active = sender:GetActiveWeapon()
-	local contents, wtbl = active:GetClass()
-	if not invitem then
-		wtbl = weapons.Get(contents)
-		if wtbl.NoDismantle or not (wtbl.AllowQualityWeapons or wtbl.PermitDismantle) then
-			GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "cannot_dismantle"))
-			return
-		end
-
-		if wtbl.AmmoIfHas and sender:GetAmmoCount(wtbl.Primary.Ammo) == 0 and active:Clip1() == 0 then
-			sender:SendLua("surface.PlaySound(\"buttons/button10.wav\")")
-			return
-		end
-
-		potinv = GAMEMODE.Breakdowns[contents]
-	else
-		itypecat = GAMEMODE:GetInventoryItemType(invitem)
-		if itypecat ~= INVCAT_TRINKETS or GAMEMODE.ZSInventoryItemData[invitem].PermitDismantle then
-			GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "cannot_dismantle"))
-			return
-		end
-
-		potinv = GAMEMODE.Breakdowns[invitem]
+	if not item or (item and not sender:HasInventoryItem(item)) then
+		return
 	end
 
-	local scrap = GAMEMODE:GetDismantleScrap(wtbl or GAMEMODE.ZSInventoryItemData[invitem], invitem)
-	net.Start("zs_ammopickup")
-		net.WriteUInt(scrap, 16)
-		net.WriteString("scrap")
-	net.Send(sender)
-	sender:GiveAmmo(scrap, "scrap")
-
-	if invitem then
-		sender:TakeInventoryItem(invitem)
-	else
-		sender:GetActiveWeapon():EmptyAll(true)
-
-		if wtbl and wtbl.AmmoIfHas then
-			sender:RemoveAmmo(1, wtbl.Primary.Ammo)
+	local name, price
+	for _, worthItem in pairs(GAMEMODE.Items) do
+		if worthItem.SWEP == item then
+			name = worthItem.Name
+			price = worthItem.Price
+			break
 		end
-
-		sender:StripWeapon(contents)
-		sender:UpdateAltSelectedWeapon()
 	end
 
-	GAMEMODE.StatTracking:IncreaseElementKV(STATTRACK_TYPE_WEAPON, invitem or contents, "Disassembles", 1)
+	if price and price >= 0 then
+		local weapon = sender:GetWeapon(item)
+		if IsValid(weapon) then
+			weapon:EmptyAll(true)
 
-	if potinv and potinv.Result then
-		sender:AddInventoryItem(potinv.Result)
+			if weapon.AmmoIfHas then
+				sender:RemoveAmmo(1, weapon.Primary.Ammo)
+			end
 
-		net.Start("zs_invitem")
-			net.WriteString(potinv.Result)
-		net.Send(sender)
+			sender:StripWeapon(weapon:GetClass())
+			sender:UpdateAltSelectedWeapon()
+		end
+
+		local sellPrice = math.ceil(price / 3)
+
+		sender:TakeInventoryItem(item)
+		sender:AddPoints(sellPrice)
+		sender:CenterNotify(COLOR_GREEN, "Sold " .. name .. " for " .. sellPrice .. " points!")
+		sender:SendLua("surface.PlaySound(\"buttons/button6.wav\")")
 	end
 end)
 
@@ -388,7 +364,17 @@ concommand.Add("zsdropweapon", function(sender, command, arguments)
 	if invitem and not sender:HasInventoryItem(invitem) then return end
 
 	if invitem or (currentwep and currentwep:IsValid()) then
-		local ent = invitem and sender:DropInventoryItemByType(invitem) or sender:DropWeaponByType(currentwep:GetClass())
+		local ent
+		if invitem then
+			local swepTable = weapons.Get(invitem)
+			if swepTable then
+				ent = sender:DropWeaponByType(invitem)
+			else
+				ent = sender:DropInventoryItemByType(invitem)
+			end
+		else
+			ent = sender:DropWeaponByType(currentwep:GetClass())
+		end
 		if ent and ent:IsValid() then
 			local shootpos = sender:GetShootPos()
 			local aimvec = sender:GetAimVector()

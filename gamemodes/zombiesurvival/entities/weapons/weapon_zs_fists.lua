@@ -25,7 +25,8 @@ SWEP.AutoSwitchFrom = true
 
 SWEP.Unarmed = true
 
-SWEP.Undroppable = true
+SWEP.Undroppable = false
+SWEP.RemoveOnDrop = true
 SWEP.NoPickupNotification = true
 SWEP.NoDismantle = true
 SWEP.NoGlassWeapons = true

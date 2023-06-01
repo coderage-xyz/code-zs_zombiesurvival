@@ -1622,8 +1622,8 @@ end
 local function EmptyClip()
 	RunConsoleCommand("zsemptyclip")
 end
-local function DismantleWeapon()
-	RunConsoleCommand("zs_dismantle", GAMEMODE.InventoryMenu.SelInv)
+local function SellWeapon()
+	RunConsoleCommand("zs_sellitem", GAMEMODE.InventoryMenu.SelInv)
 end
 
 local function AltSelItemUpd()
@@ -1635,7 +1635,7 @@ local function AltSelItemUpd()
 end
 
 function GM:DoAltSelectedItemUpdate()
-	if self.InventoryMenu.SelInv then
+	if self.InventoryMenu.SelInv and self.ZSInventoryItemData[self.InventoryMenu.SelInv] then
 		self.HumanMenuPanel.SelectedItemLabel:SetText(self.ZSInventoryItemData[self.InventoryMenu.SelInv].PrintName)
 	else
 		timer.Simple(0.25, AltSelItemUpd)
@@ -1717,10 +1717,10 @@ function GM:HumanMenu()
 
 	gwbtn = vgui.Create("DButton")
 	gwbtn:SetFont("ZSHUDFontSmaller")
-	gwbtn:SetText("Dismantle Item")
+	gwbtn:SetText("Sell Item")
 	gwbtn:SetSize(panel:GetWide() - 8 * screenscale, hei - 4 * screenscale)
 	gwbtn:CenterHorizontal()
-	gwbtn.DoClick = DismantleWeapon
+	gwbtn.DoClick = SellWeapon
 	panel:AddItem(gwbtn)
 
 	panel:AddItem(EasyLabel(panel, "Resupply Ammo Selection", "DefaultFont", color_white))

@@ -28,6 +28,8 @@ SWEP.NoDeploySpeedChange = true
 SWEP.NoTransfer = true
 SWEP.AutoSwitchFrom	= false
 
+SWEP.IsTrinket = true
+
 function SWEP:PrimaryAttack()
 end
 

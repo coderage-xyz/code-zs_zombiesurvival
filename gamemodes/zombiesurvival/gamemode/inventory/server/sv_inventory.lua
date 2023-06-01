@@ -182,7 +182,7 @@ function meta:GiveInventoryItemByType(itype, plyr)
 end
 
 function GM:IsInventoryItem(item)
-	return self.ZSInventoryItemData[item]
+	return self.ZSInventoryItemData[item] ~= nil or weapons.Get(item) ~= nil
 end
 
 function meta:GetInventoryItems()
@@ -192,3 +192,15 @@ end
 function meta:HasInventoryItem(item)
 	return self.ZSInventory[item]
 end
+
+hook.Add("WeaponEquip", "ZS.Inventory.AddWeapon", function(weapon, ply)
+	if not weapon.IsTrinket then
+		ply:AddInventoryItem(weapon:GetClass())
+	end
+end)
+
+hook.Add("PlayerDroppedWeapon", "ZS.Inventory.RemoveWeapon", function(owner, weapon)
+	if not weapon.IsTrinket then
+		owner:TakeInventoryItem(weapon:GetClass())
+	end
+end)

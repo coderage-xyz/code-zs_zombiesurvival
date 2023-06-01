@@ -1,14 +1,17 @@
-INVCAT_TRINKETS = 1
-INVCAT_COMPONENTS = 2
-INVCAT_CONSUMABLES = 3
+INVCAT_WEAPONS = 1
+INVCAT_TRINKETS = 2
+INVCAT_COMPONENTS = 3
+INVCAT_CONSUMABLES = 4
 
 GM.ZSInventoryItemData = {}
 GM.ZSInventoryCategories = {
+	[INVCAT_WEAPONS] = "Weapons",
 	[INVCAT_TRINKETS] = "Trinkets",
 	[INVCAT_COMPONENTS] = "Components",
 	[INVCAT_CONSUMABLES] = "Consumables"
 }
 GM.ZSInventoryPrefix = {
+	[INVCAT_WEAPONS] = "weap",
 	[INVCAT_TRINKETS] = "trin",
 	[INVCAT_COMPONENTS] = "comp",
 	[INVCAT_CONSUMABLES] = "cons"

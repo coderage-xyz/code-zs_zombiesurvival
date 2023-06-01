@@ -38,6 +38,8 @@ AccessorFuncDT(SWEP, "EatStartTime", "Float", 1)
 
 SWEP.Weight = 1
 
+SWEP.IsFood = true
+
 function SWEP:CanEat()
 	local owner = self:GetOwner()
 

@@ -825,27 +825,34 @@ function meta:DropWeaponByType(class)
 
 	local wep = self:GetWeapon(class)
 	if wep and wep:IsValid() and not wep.Undroppable then
-		local ent = ents.Create("prop_weapon")
-		if ent:IsValid() then
-			ent:SetWeaponType(class)
-			ent:Spawn()
-
-			if wep.AmmoIfHas then
-				local ammocount = wep:GetPrimaryAmmoCount()
-				local desiredrop = math.min(ammocount, wep.Primary.ClipSize) - wep:Clip1()
-				if desiredrop > 0 then
-					wep:TakeCombinedPrimaryAmmo(desiredrop)
-					wep:SetClip1(desiredrop)
-				end
-			end
-			ent:SetClip1(wep:Clip1())
-			ent:SetClip2(wep:Clip2())
-			ent.DroppedTime = CurTime()
-
+		if wep.RemoveOnDrop then
 			self:StripWeapon(class)
 			self:UpdateAltSelectedWeapon()
 
-			return ent
+			return NULL
+		else
+			local ent = ents.Create("prop_weapon")
+			if ent:IsValid() then
+				ent:SetWeaponType(class)
+				ent:Spawn()
+
+				if wep.AmmoIfHas then
+					local ammocount = wep:GetPrimaryAmmoCount()
+					local desiredrop = math.min(ammocount, wep.Primary.ClipSize) - wep:Clip1()
+					if desiredrop > 0 then
+						wep:TakeCombinedPrimaryAmmo(desiredrop)
+						wep:SetClip1(desiredrop)
+					end
+				end
+				ent:SetClip1(wep:Clip1())
+				ent:SetClip2(wep:Clip2())
+				ent.DroppedTime = CurTime()
+
+				self:StripWeapon(class)
+				self:UpdateAltSelectedWeapon()
+
+				return ent
+			end
 		end
 	end
 end
