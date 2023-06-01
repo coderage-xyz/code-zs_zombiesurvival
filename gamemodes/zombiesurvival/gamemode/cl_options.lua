@@ -254,11 +254,11 @@ cvars.AddChangeCallback("zs_drawpainflash", function(cvar, oldvalue, newvalue)
 	GAMEMODE.DrawPainFlash = tonumber(newvalue) == 1
 end)
 
-GM.DisplayXPHUD = CreateClientConVar("zs_drawxp", "1", true, false):GetBool()
-cvars.AddChangeCallback("zs_drawxp", function(cvar, oldvalue, newvalue)
-	GAMEMODE.DisplayXPHUD = tonumber(newvalue) == 1
-	gamemode.Call("EvaluateFilmMode")
-end)
+GM.DisplayXPHUD = false -- CreateClientConVar("zs_drawxp", "1", true, false):GetBool()
+-- cvars.AddChangeCallback("zs_drawxp", function(cvar, oldvalue, newvalue)
+-- 	GAMEMODE.DisplayXPHUD = tonumber(newvalue) == 1
+-- 	gamemode.Call("EvaluateFilmMode")
+-- end)
 
 GM.FontEffects = CreateClientConVar("zs_fonteffects", "0", true, false):GetBool()
 cvars.AddChangeCallback("zs_fonteffects", function(cvar, oldvalue, newvalue)
