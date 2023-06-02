@@ -10,10 +10,9 @@ function ENT:Think()
 
 		self:RemoveModels()
 
-		local invdata = GAMEMODE.ZSInventoryItemData[itype]
-		local droppedeles = invdata.DroppedEles
+		local droppedeles = GAMEMODE.ZSInventoryItemData[itype] and GAMEMODE.ZSInventoryItemData[itype].DroppedEles
 
-		if invdata then
+		if droppedeles then
 			--local showmdl = --weptab.ShowWorldModel or not self:LookupBone("ValveBiped.Bip01_R_Hand") and not weptab.NoDroppedWorldModel
 			self.ShowBaseModel = not istable(droppedeles)--weptab.ShowWorldModel == nil and true or showmdl
 
