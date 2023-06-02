@@ -9,11 +9,7 @@ local M_Player = FindMetaTable("Player")
 local P_Team = M_Player.Team
 
 local function AltSelItemUpd()
-	local activeweapon = MySelf:GetActiveWeapon()
-	if not activeweapon or not activeweapon:IsValid() then return end
-
-	local actwclass = activeweapon:GetClass()
-	GAMEMODE.HumanMenuPanel.SelectedItemLabel:SetText(weapons.Get(actwclass).PrintName)
+	GAMEMODE:UpdateSelectedItemName()
 end
 
 net.Receive("zs_legdamage", function(length)

@@ -1627,16 +1627,12 @@ local function SellWeapon()
 end
 
 local function AltSelItemUpd()
-	local activeweapon = MySelf:GetActiveWeapon()
-	if not activeweapon or not activeweapon:IsValid() then return end
-
-	local actwclass = activeweapon:GetClass()
-	GAMEMODE.HumanMenuPanel.SelectedItemLabel:SetText(weapons.Get(actwclass).PrintName)
+	GAMEMODE:UpdateSelectedItemName()
 end
 
 function GM:DoAltSelectedItemUpdate()
 	if self.InventoryMenu.SelInv and self.ZSInventoryItemData[self.InventoryMenu.SelInv] then
-		self.HumanMenuPanel.SelectedItemLabel:SetText(self.ZSInventoryItemData[self.InventoryMenu.SelInv].PrintName)
+		self:UpdateSelectedItemName()
 	else
 		timer.Simple(0.25, AltSelItemUpd)
 	end

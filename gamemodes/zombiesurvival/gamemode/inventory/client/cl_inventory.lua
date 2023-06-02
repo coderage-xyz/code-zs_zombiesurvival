@@ -51,6 +51,16 @@ local function TryCraftWithComponent(me)
 	net.SendToServer()
 end
 
+function GM:UpdateSelectedItemName()
+	if GAMEMODE.HumanMenuPanel then
+		if GAMEMODE.InventoryMenu.SelInv then
+			GAMEMODE.HumanMenuPanel.SelectedItemLabel:SetText(GAMEMODE.ZSInventoryItemData[GAMEMODE.InventoryMenu.SelInv] and GAMEMODE.ZSInventoryItemData[GAMEMODE.InventoryMenu.SelInv].PrintName or weapons.Get(GAMEMODE.InventoryMenu.SelInv).PrintName)
+		else
+			GAMEMODE.HumanMenuPanel.SelectedItemLabel:SetText("NONE")
+		end
+	end
+end
+
 local function ItemPanelDoClick(self)
 	local item = self.Item
 	if not item then return end
@@ -59,17 +69,7 @@ local function ItemPanelDoClick(self)
 	local viewer = GAMEMODE.m_InvViewer
 	local screenscale = BetterScreenScale()
 
-	if self.On then
-		if viewer and viewer:IsValid() then
-			viewer:SetVisible(false)
-		end
-
-		self.On = false
-
-		GAMEMODE.InventoryMenu.SelInv = false
-		GAMEMODE:DoAltSelectedItemUpdate()
-		return
-	else
+	if not self.On then
 		for _, v in pairs(self:GetParent():GetChildren()) do
 			v.On = false
 		end
@@ -172,6 +172,8 @@ local function ItemPanelDoClick(self)
 	else
 		viewer.m_CraftWith:SetVisible(false)
 	end
+
+	GAMEMODE:UpdateSelectedItemName()
 end
 
 local categorycolors = {
@@ -322,14 +324,25 @@ function GM:InventoryWipeGrid()
 	self:DoAltSelectedItemUpdate()
 end
 
-local function SelectCurrentWeaponItem()
-	local weapon = LocalPlayer():GetActiveWeapon()
-	if IsValid(weapon) then
-		local weaponClass = weapon:GetClass()
-		for _, itempan in ipairs(GAMEMODE.InventoryMenu.Grid:GetChildren()) do
-			if itempan.Item == weaponClass then
-				ItemPanelDoClick(itempan)
-				break
+function GM:InventorySelectCurrentWeaponItem()
+	if self.InventoryMenu then
+		local weapon = LocalPlayer():GetActiveWeapon()
+		if IsValid(weapon) then
+			local weaponClass = weapon:GetClass()
+			local children = self.InventoryMenu.Grid:GetChildren()
+			local clicked = false
+			for _, itempan in ipairs(children) do
+				if itempan.Item == weaponClass then
+					ItemPanelDoClick(itempan)
+					clicked = true
+					break
+				end
+			end
+			if not clicked then
+				if children[1] then
+					ItemPanelDoClick(children[1])
+				end
+				clicked = true
 			end
 		end
 	end
@@ -343,7 +356,7 @@ function GM:OpenInventory()
 			self.m_InvViewer:SetVisible(true)
 		end
 
-		SelectCurrentWeaponItem()
+		self:InventorySelectCurrentWeaponItem()
 
 		return
 	end
@@ -400,7 +413,7 @@ function GM:OpenInventory()
 
 	invgrid:SortByMember("Category")
 
-	SelectCurrentWeaponItem()
+	self:InventorySelectCurrentWeaponItem()
 
 	frame:MakePopup()
 end
