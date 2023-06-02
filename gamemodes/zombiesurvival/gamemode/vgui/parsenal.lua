@@ -147,7 +147,7 @@ function GM:ViewerStatBarUpdate(viewer, display, sweptable)
 			elseif sweptable[statshow[1]] < SPEED_SLOWEST then
 				stattext = speedtotext[-1]
 			end
-		elseif statshow[1] == "ClipSize" then
+		elseif statshow[1] == "ClipSize" and sweptable.RequiredClip then
 			stattext = statnum / sweptable.RequiredClip
 		else
 			stattext = statnum
@@ -158,7 +158,7 @@ function GM:ViewerStatBarUpdate(viewer, display, sweptable)
 
 		if statshow[1] == "Damage" then
 			statnum = statnum * sweptable.Primary.NumShots
-		elseif statshow[1] == "ClipSize" then
+		elseif statshow[1] == "ClipSize" and sweptable.RequiredClip then
 			statnum = statnum / sweptable.RequiredClip
 		end
 

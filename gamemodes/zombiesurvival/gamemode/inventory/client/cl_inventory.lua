@@ -123,14 +123,14 @@ local function ItemPanelDoClick(self)
 	end
 	viewer.m_Desc:SetText(desctext)
 
-	local worthItemCategory
-	for _, worthItem in pairs(GAMEMODE.Items) do
-		if worthItem.SWEP == item then
-			worthItemCategory = worthItem.Category
+	local pointShopItemCategory
+	for _, pointShopItem in pairs(GAMEMODE.Items) do
+		if pointShopItem.SWEP == item then
+			pointShopItemCategory = pointShopItem.Category
 			break
 		end
 	end
-	GAMEMODE:ViewerStatBarUpdate(viewer, (not worthItemCategory and (self.Category ~= INVCAT_WEAPONS or sweptable.IsFood)) or (worthItemCategory and worthItemCategory ~= ITEMCAT_GUNS and worthItemCategory ~= ITEMCAT_MELEE), sweptable)
+	GAMEMODE:ViewerStatBarUpdate(viewer, not pointShopItemCategory or (pointShopItemCategory and pointShopItemCategory ~= ITEMCAT_GUNS and pointShopItemCategory ~= ITEMCAT_MELEE), sweptable)
 
 	for i = 1, 3 do
 		local crab, cral = viewer.m_CraftBtns[i][1], viewer.m_CraftBtns[i][2]
