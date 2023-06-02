@@ -91,7 +91,7 @@ function meta:TryAssembleItem(component, heldclass)
 	local invitemresult = GAMEMODE:GetInventoryItemType(desiassembly) ~= -1
 
 	local desitable
-	if invitemresult then
+	if invitemresult and not weapons.Get(desiassembly) then
 		if not self:TakeInventoryItem(component) then return end
 
 		self:AddInventoryItem(desiassembly)
