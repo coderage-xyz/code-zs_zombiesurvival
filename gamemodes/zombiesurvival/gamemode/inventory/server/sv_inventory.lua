@@ -56,72 +56,57 @@ net.Receive("zs_trycraft", function(len, pl)
 	pl:TryAssembleItem(component, weapon)
 end)
 
-function meta:TryAssembleItem(component, heldclass)
-	local heldwep, desiassembly = self:GetWeapon(heldclass)
-	local heldwepiitype = GAMEMODE:GetInventoryItemType(heldclass) ~= -1
+function meta:TryAssembleItem(component, component2)
+	local weapon = self:GetWeapon(component2)
+	local isWeaponComponent = IsValid(weapon)
+	local craftedItem
 
-	if heldwepiitype then
-		if not self:HasInventoryItem(heldclass) then
-			self:CenterNotify(COLOR_RED, "You don't have the item to craft this with.")
-			self:SendLua("surface.PlaySound(\"buttons/button10.wav\")")
-			return
-		end
-	else
-		if not heldwep or not heldwep:IsValid() then
-			self:CenterNotify(COLOR_RED, "You don't have the weapon to craft this with.")
-			self:SendLua("surface.PlaySound(\"buttons/button10.wav\")")
-			return
-		end
-	end
-
-	for assembly, reqs in pairs(GAMEMODE.Assemblies) do
-		local reqcomp, reqweapon = reqs[1], reqs[2]
-		if reqcomp == component and reqweapon == heldclass then
-			desiassembly = assembly
-			break
-		end
-	end
-
-	if not desiassembly then
-		self:CenterNotify(COLOR_RED, "You can't make anything with this component and your currently held weapon.")
+	if not self:HasInventoryItem(component) or not self:HasInventoryItem(component2) then
+		self:CenterNotify(COLOR_RED, "You don't have the item to craft this with.")
 		self:SendLua("surface.PlaySound(\"buttons/button10.wav\")")
 		return
 	end
 
-	local invitemresult = GAMEMODE:GetInventoryItemType(desiassembly) ~= -1
-
-	local desitable
-	if invitemresult and not weapons.Get(desiassembly) then
-		if not self:TakeInventoryItem(component) then return end
-
-		self:AddInventoryItem(desiassembly)
-		self:CenterNotify(COLOR_LIMEGREEN, translate.ClientGet(self, "crafting_successful"), color_white, "   ("..GAMEMODE.ZSInventoryItemData[desiassembly].PrintName..")")
-	else
-		desitable = weapons.Get(desiassembly)
-		if (not desitable.AmmoIfHas and self:HasWeapon(desiassembly)) or not self:TakeInventoryItem(component) then return end
-
-		if desitable.AmmoIfHas then
-			self:GiveAmmo(1, desitable.Primary.Ammo)
+	for assembly, reqs in pairs(GAMEMODE.Assemblies) do
+		local reqcomp, reqcomp2 = reqs[1], reqs[2]
+		if reqcomp == component and reqcomp2 == component2 then
+			craftedItem = assembly
+			break
 		end
-		self:GiveEmptyWeapon(desiassembly)
-		self:SelectWeapon(desiassembly)
+	end
+
+	if not craftedItem then
+		self:CenterNotify(COLOR_RED, "You can't make anything with these items.")
+		self:SendLua("surface.PlaySound(\"buttons/button10.wav\")")
+		return
+	end
+
+	if isWeaponComponent then
+		if weapon.AmmoIfHas then
+			self:GiveAmmo(1, weapon.Primary.Ammo)
+		end
+		self:GiveEmptyWeapon(craftedItem)
+		self:SelectWeapon(craftedItem)
 		self:UpdateAltSelectedWeapon()
-
-		self:CenterNotify(COLOR_LIMEGREEN, translate.ClientGet(self, "crafting_successful"), color_white, "   ("..desitable.PrintName..")")
-	end
-
-	if heldwepiitype then
-		self:TakeInventoryItem(heldclass)
+		self:CenterNotify(COLOR_LIMEGREEN, translate.ClientGet(self, "crafting_successful"), color_white, "   ("..weapon.PrintName..")")
 	else
-		heldwep:EmptyAll(true)
-		if heldwep.AmmoIfHas then
-			self:RemoveAmmo(1, heldwep.Primary.Ammo)
-		end
-		self:StripWeapon(heldclass)
+		self:AddInventoryItem(craftedItem)
+		self:CenterNotify(COLOR_LIMEGREEN, translate.ClientGet(self, "crafting_successful"), color_white, "   ("..GAMEMODE.ZSInventoryItemData[craftedItem].PrintName..")")
 	end
-	self:SendLua("surface.PlaySound(\"buttons/lever"..math.random(5)..".wav\")")
 
-	GAMEMODE.StatTracking:IncreaseElementKV(STATTRACK_TYPE_WEAPON, desiassembly, "Crafts", 1)
+	self:TakeInventoryItem(component)
+	if isWeaponComponent then
+		weapon:EmptyAll(true)
+		if weapon.AmmoIfHas then
+			self:RemoveAmmo(1, weapon.Primary.Ammo)
+		end
+		self:StripWeapon(component2)
+	else
+		self:TakeInventoryItem(component2)
+	end
+
+	self:SendLua("surface.PlaySound(\"buttons/lever"..math.random(5)..".wav\")")
+	GAMEMODE.StatTracking:IncreaseElementKV(STATTRACK_TYPE_WEAPON, craftedItem, "Crafts", 1)
 end
 
 function meta:DropInventoryItemByType(itype)
