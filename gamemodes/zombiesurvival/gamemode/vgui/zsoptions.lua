@@ -114,17 +114,17 @@ function PANEL:Init()
 	check:SizeToContents()
 	self.list:AddItem(check)
 
-	check = vgui.Create("DCheckBoxLabel", self)
-	check:SetText("Enable ambient music")
-	check:SetConVar("zs_beats")
-	check:SizeToContents()
-	self.list:AddItem(check)
+	-- check = vgui.Create("DCheckBoxLabel", self)
+	-- check:SetText("Enable ambient music")
+	-- check:SetConVar("zs_beats")
+	-- check:SizeToContents()
+	-- self.list:AddItem(check)
 
-	check = vgui.Create("DCheckBoxLabel", self)
-	check:SetText("Enable last human music")
-	check:SetConVar("zs_playmusic")
-	check:SizeToContents()
-	self.list:AddItem(check)
+	-- check = vgui.Create("DCheckBoxLabel", self)
+	-- check:SetText("Enable last human music")
+	-- check:SetConVar("zs_playmusic")
+	-- check:SizeToContents()
+	-- self.list:AddItem(check)
 
 	check = vgui.Create("DCheckBoxLabel", self)
 	check:SetText("Enable post processing")
@@ -246,39 +246,39 @@ function PANEL:Init()
 	dropdown:SetTextColor(color_black)
 	self.list:AddItem(dropdown)
 
-	self.list:AddItem(EasyLabel(self, "Human ambient beat set", "DefaultFontSmall", color_white))
-	dropdown = vgui.Create("DComboBox", self)
-	dropdown:SetMouseInputEnabled(true)
-	for setname in pairs(GAMEMODE.Beats) do
-		if setname ~= GAMEMODE.BeatSetHumanDefualt then
-			dropdown:AddChoice(setname)
-		end
-	end
-	dropdown:AddChoice("none")
-	dropdown:AddChoice("default")
-	dropdown.OnSelect = function(me, index, value, data)
-		RunConsoleCommand("zs_beatset_human", value)
-	end
-	dropdown:SetText(GAMEMODE.BeatSetHuman == GAMEMODE.BeatSetHumanDefault and "default" or GAMEMODE.BeatSetHuman)
-	dropdown:SetTextColor(color_black)
-	self.list:AddItem(dropdown)
+	-- self.list:AddItem(EasyLabel(self, "Human ambient beat set", "DefaultFontSmall", color_white))
+	-- dropdown = vgui.Create("DComboBox", self)
+	-- dropdown:SetMouseInputEnabled(true)
+	-- for setname in pairs(GAMEMODE.Beats) do
+	-- 	if setname ~= GAMEMODE.BeatSetHumanDefualt then
+	-- 		dropdown:AddChoice(setname)
+	-- 	end
+	-- end
+	-- dropdown:AddChoice("none")
+	-- dropdown:AddChoice("default")
+	-- dropdown.OnSelect = function(me, index, value, data)
+	-- 	RunConsoleCommand("zs_beatset_human", value)
+	-- end
+	-- dropdown:SetText(GAMEMODE.BeatSetHuman == GAMEMODE.BeatSetHumanDefault and "default" or GAMEMODE.BeatSetHuman)
+	-- dropdown:SetTextColor(color_black)
+	-- self.list:AddItem(dropdown)
 
-	self.list:AddItem(EasyLabel(self, "Zombie ambient beat set", "DefaultFontSmall", color_white))
-	dropdown = vgui.Create("DComboBox", self)
-	dropdown:SetMouseInputEnabled(true)
-	for setname in pairs(GAMEMODE.Beats) do
-		if setname ~= GAMEMODE.BeatSetZombieDefualt then
-			dropdown:AddChoice(setname)
-		end
-	end
-	dropdown:AddChoice("none")
-	dropdown:AddChoice("default")
-	dropdown.OnSelect = function(me, index, value, data)
-		RunConsoleCommand("zs_beatset_zombie", value)
-	end
-	dropdown:SetText(GAMEMODE.BeatSetZombie == GAMEMODE.BeatSetZombieDefault and "default" or GAMEMODE.BeatSetZombie)
-	dropdown:SetTextColor(color_black)
-	self.list:AddItem(dropdown)
+	-- self.list:AddItem(EasyLabel(self, "Zombie ambient beat set", "DefaultFontSmall", color_white))
+	-- dropdown = vgui.Create("DComboBox", self)
+	-- dropdown:SetMouseInputEnabled(true)
+	-- for setname in pairs(GAMEMODE.Beats) do
+	-- 	if setname ~= GAMEMODE.BeatSetZombieDefualt then
+	-- 		dropdown:AddChoice(setname)
+	-- 	end
+	-- end
+	-- dropdown:AddChoice("none")
+	-- dropdown:AddChoice("default")
+	-- dropdown.OnSelect = function(me, index, value, data)
+	-- 	RunConsoleCommand("zs_beatset_zombie", value)
+	-- end
+	-- dropdown:SetText(GAMEMODE.BeatSetZombie == GAMEMODE.BeatSetZombieDefault and "default" or GAMEMODE.BeatSetZombie)
+	-- dropdown:SetTextColor(color_black)
+	-- self.list:AddItem(dropdown)
 
 	local slider = vgui.Create("DNumSlider", self)
 	slider:SetDecimals(0)
@@ -352,13 +352,13 @@ function PANEL:Init()
 	slider:SizeToContents()
 	self.list:AddItem(slider)
 
-	slider = vgui.Create("DNumSlider", self)
-	slider:SetDecimals(0)
-	slider:SetMinMax(0, 100)
-	slider:SetConVar("zs_beatsvolume")
-	slider:SetText("Music volume")
-	slider:SizeToContents()
-	self.list:AddItem(slider)
+	-- slider = vgui.Create("DNumSlider", self)
+	-- slider:SetDecimals(0)
+	-- slider:SetMinMax(0, 100)
+	-- slider:SetConVar("zs_beatsvolume")
+	-- slider:SetText("Music volume")
+	-- slider:SizeToContents()
+	-- self.list:AddItem(slider)
 
 	slider = vgui.Create("DNumSlider", self)
 	slider:SetDecimals(1)

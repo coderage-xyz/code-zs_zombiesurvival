@@ -1680,15 +1680,15 @@ function GM:RestartLua()
 	if type(GetGlobalBool("endcamera", 1)) ~= "number" then
 		SetGlobalBool("endcamera", nil)
 	end
-	if GetGlobalString("winmusic", "-") ~= "-" then
-		SetGlobalString("winmusic", nil)
-	end
-	if GetGlobalString("losemusic", "-") ~= "-" then
-		SetGlobalString("losemusic", nil)
-	end
-	if type(GetGlobalVector("endcamerapos", 1)) ~= "number" then
-		SetGlobalVector("endcamerapos", nil)
-	end
+	-- if GetGlobalString("winmusic", "-") ~= "-" then
+	-- 	SetGlobalString("winmusic", nil)
+	-- end
+	-- if GetGlobalString("losemusic", "-") ~= "-" then
+	-- 	SetGlobalString("losemusic", nil)
+	-- end
+	-- if type(GetGlobalVector("endcamerapos", 1)) ~= "number" then
+	-- 	SetGlobalVector("endcamerapos", nil)
+	-- end
 
 	self.CappedInfliction = 0
 	self.PeakPopulation = 0

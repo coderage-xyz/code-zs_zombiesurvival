@@ -86,32 +86,32 @@ validmodels["tf02"] = nil
 vector_tiny = Vector(0.001, 0.001, 0.001)
 
 -- ogg/mp3 still doesn't work with SoundDuration() function
-GM.SoundDuration = {
-	["zombiesurvival/music_win.ogg"] = 33.149,
-	["zombiesurvival/music_lose.ogg"] = 45.714,
-	["zombiesurvival/lasthuman.ogg"] = 120.503,
+-- GM.SoundDuration = {
+-- 	["zombiesurvival/music_win.ogg"] = 33.149,
+-- 	["zombiesurvival/music_lose.ogg"] = 45.714,
+-- 	["zombiesurvival/lasthuman.ogg"] = 120.503,
 
-	["zombiesurvival/beats/defaulthuman/1.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/2.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/3.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/4.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/5.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/6.ogg"] = 14.222,
-	["zombiesurvival/beats/defaulthuman/7.ogg"] = 14.222,
-	["zombiesurvival/beats/defaulthuman/8.ogg"] = 7.111,
-	["zombiesurvival/beats/defaulthuman/9.ogg"] = 14.222,
+-- 	["zombiesurvival/beats/defaulthuman/1.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/2.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/3.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/4.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/5.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/6.ogg"] = 14.222,
+-- 	["zombiesurvival/beats/defaulthuman/7.ogg"] = 14.222,
+-- 	["zombiesurvival/beats/defaulthuman/8.ogg"] = 7.111,
+-- 	["zombiesurvival/beats/defaulthuman/9.ogg"] = 14.222,
 
-	["zombiesurvival/beats/defaultzombiev2/1.ogg"] = 8,
-	["zombiesurvival/beats/defaultzombiev2/2.ogg"] = 8,
-	["zombiesurvival/beats/defaultzombiev2/3.ogg"] = 8,
-	["zombiesurvival/beats/defaultzombiev2/4.ogg"] = 8,
-	["zombiesurvival/beats/defaultzombiev2/5.ogg"] = 8,
-	["zombiesurvival/beats/defaultzombiev2/6.ogg"] = 6.038,
-	["zombiesurvival/beats/defaultzombiev2/7.ogg"] = 6.038,
-	["zombiesurvival/beats/defaultzombiev2/8.ogg"] = 6.038,
-	["zombiesurvival/beats/defaultzombiev2/9.ogg"] = 6.038,
-	["zombiesurvival/beats/defaultzombiev2/10.ogg"] = 6.038
-}
+-- 	["zombiesurvival/beats/defaultzombiev2/1.ogg"] = 8,
+-- 	["zombiesurvival/beats/defaultzombiev2/2.ogg"] = 8,
+-- 	["zombiesurvival/beats/defaultzombiev2/3.ogg"] = 8,
+-- 	["zombiesurvival/beats/defaultzombiev2/4.ogg"] = 8,
+-- 	["zombiesurvival/beats/defaultzombiev2/5.ogg"] = 8,
+-- 	["zombiesurvival/beats/defaultzombiev2/6.ogg"] = 6.038,
+-- 	["zombiesurvival/beats/defaultzombiev2/7.ogg"] = 6.038,
+-- 	["zombiesurvival/beats/defaultzombiev2/8.ogg"] = 6.038,
+-- 	["zombiesurvival/beats/defaultzombiev2/9.ogg"] = 6.038,
+-- 	["zombiesurvival/beats/defaultzombiev2/10.ogg"] = 6.038
+-- }
 
 local SERVER = SERVER
 local CLIENT = CLIENT

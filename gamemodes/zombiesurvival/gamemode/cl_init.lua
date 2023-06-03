@@ -194,7 +194,7 @@ GM.HurtEffect = 0
 GM.PrevHealth = 0
 GM.SuppressArsenalTime = 0
 GM.ZombieThirdPerson = false
-GM.Beats = {}
+-- GM.Beats = {}
 GM.CurrentRound = 1
 
 GM.DeathFog = 0
@@ -723,7 +723,7 @@ function GM:_Think()
 
 	local myteam = P_Team(MySelf)
 
-	self:PlayBeats(myteam, self:CachedFearPower())
+	-- self:PlayBeats(myteam, self:CachedFearPower())
 
 	local thirdperson
 	if myteam == TEAM_HUMAN then
@@ -771,36 +771,36 @@ function GM:_Think()
 	end
 end
 
-function GM:ShouldPlayBeats(teamid, fear)
-	return not self.RoundEnded and not self.ZombieEscape and not GetGlobalBool("beatsdisabled", false)
-end
+-- function GM:ShouldPlayBeats(teamid, fear)
+-- 	return not self.RoundEnded and not self.ZombieEscape and not GetGlobalBool("beatsdisabled", false)
+-- end
 
-local cv_ShouldPlayMusic = CreateClientConVar("zs_playmusic", 1, true, false)
-local NextBeat = 0
-local LastBeatLevel = 0
-function GM:PlayBeats(teamid, fear)
-	if RealTime() <= NextBeat or not gamemode.Call("ShouldPlayBeats", teamid, fear) then return end
+-- local cv_ShouldPlayMusic = CreateClientConVar("zs_playmusic", 1, true, false)
+-- local NextBeat = 0
+-- local LastBeatLevel = 0
+-- function GM:PlayBeats(teamid, fear)
+-- 	if RealTime() <= NextBeat or not gamemode.Call("ShouldPlayBeats", teamid, fear) then return end
 
-	--if (LASTHUMAN or self:GetAllSigilsDestroyed()) and cv_ShouldPlayMusic:GetBool() then
-	if LASTHUMAN and cv_ShouldPlayMusic:GetBool() then
-		MySelf:EmitSound(self.LastHumanSound, 0, 100, self.BeatsVolume)
-		NextBeat = RealTime() + SoundDuration(self.LastHumanSound) - 0.025
-		return
-	end
+-- 	--if (LASTHUMAN or self:GetAllSigilsDestroyed()) and cv_ShouldPlayMusic:GetBool() then
+-- 	if LASTHUMAN and cv_ShouldPlayMusic:GetBool() then
+-- 		MySelf:EmitSound(self.LastHumanSound, 0, 100, self.BeatsVolume)
+-- 		NextBeat = RealTime() + SoundDuration(self.LastHumanSound) - 0.025
+-- 		return
+-- 	end
 
-	if fear <= 0 or not self.BeatsEnabled then return end
+-- 	if fear <= 0 or not self.BeatsEnabled then return end
 
-	local beats = self.Beats[teamid == TEAM_HUMAN and self.BeatSetHuman or self.BeatSetZombie]
-	if not beats then return end
+-- 	local beats = self.Beats[teamid == TEAM_HUMAN and self.BeatSetHuman or self.BeatSetZombie]
+-- 	if not beats then return end
 
-	LastBeatLevel = math.Approach(LastBeatLevel, math.ceil(fear * 10), 3)
+-- 	LastBeatLevel = math.Approach(LastBeatLevel, math.ceil(fear * 10), 3)
 
-	local snd = beats[LastBeatLevel]
-	if snd then
-		MySelf:EmitSound(snd, 0, 100, self.BeatsVolume)
-		NextBeat = RealTime() + (self.SoundDuration[snd] or SoundDuration(snd)) - 0.025
-	end
-end
+-- 	local snd = beats[LastBeatLevel]
+-- 	if snd then
+-- 		MySelf:EmitSound(snd, 0, 100, self.BeatsVolume)
+-- 		NextBeat = RealTime() + (self.SoundDuration[snd] or SoundDuration(snd)) - 0.025
+-- 	end
+-- end
 
 local colPackUp = Color(20, 255, 20, 220)
 local colPackUpNotOwner = Color(255, 240, 10, 220)
@@ -1482,7 +1482,7 @@ function GM:Initialize()
 	self:CreateFonts()
 	self:PrecacheResources()
 	self:CreateVGUI()
-	self:InitializeBeats()
+	-- self:InitializeBeats()
 	self:AddCustomAmmo()
 	self:RegisterFood()
 	self:CreateWeaponQualities()
@@ -1521,32 +1521,32 @@ local function FirstOfGoodType(a)
 	end
 end
 
-function GM:InitializeBeats()
-	local _, dirs = file.Find("sound/zombiesurvival/beats/*", "GAME")
-	for _, dirname in pairs(dirs) do
-		if dirname == "none" or dirname == "default" then continue end
+-- function GM:InitializeBeats()
+-- 	local _, dirs = file.Find("sound/zombiesurvival/beats/*", "GAME")
+-- 	for _, dirname in pairs(dirs) do
+-- 		if dirname == "none" or dirname == "default" then continue end
 
-		self.Beats[dirname] = {}
-		local highestexist
-		for i=1, 10 do
-			local a, __ = file.Find("sound/zombiesurvival/beats/"..dirname.."/"..i..".*", "GAME")
-			local a1 = FirstOfGoodType(a)
-			if a1 then
-				local filename = "zombiesurvival/beats/"..dirname.."/"..a1
-				if file.Exists("sound/"..filename, "GAME") then
-					self.Beats[dirname][i] = Sound(filename)
-					highestexist = filename
+-- 		self.Beats[dirname] = {}
+-- 		local highestexist
+-- 		for i=1, 10 do
+-- 			local a, __ = file.Find("sound/zombiesurvival/beats/"..dirname.."/"..i..".*", "GAME")
+-- 			local a1 = FirstOfGoodType(a)
+-- 			if a1 then
+-- 				local filename = "zombiesurvival/beats/"..dirname.."/"..a1
+-- 				if file.Exists("sound/"..filename, "GAME") then
+-- 					self.Beats[dirname][i] = Sound(filename)
+-- 					highestexist = filename
 
-					continue
-				end
-			end
+-- 					continue
+-- 				end
+-- 			end
 
-			if highestexist then
-				self.Beats[dirname][i] = highestexist
-			end
-		end
-	end
-end
+-- 			if highestexist then
+-- 				self.Beats[dirname][i] = highestexist
+-- 			end
+-- 		end
+-- 	end
+-- end
 
 function GM:PlayerDeath(pl, attacker)
 end
@@ -2086,16 +2086,16 @@ function GM:EndRound(winner, nextmap)
 		hook.Add("ShouldDrawLocalPlayer", "EndRoundShouldDrawLocalPlayer", EndRoundShouldDrawLocalPlayer)
 	end
 
-	local dvar = winner == TEAM_UNDEAD and self.AllLoseSound or self.HumanWinSound
-	local snd = GetGlobalString(winner == TEAM_UNDEAD and "losemusic" or "winmusic", dvar)
-	if snd == "default" then
-		snd = dvar
-	elseif snd == "none" then
-		snd = nil
-	end
-	if snd then
-		timer.Simple(0.5, function() surface_PlaySound(snd) end)
-	end
+	-- local dvar = winner == TEAM_UNDEAD and self.AllLoseSound or self.HumanWinSound
+	-- local snd = GetGlobalString(winner == TEAM_UNDEAD and "losemusic" or "winmusic", dvar)
+	-- if snd == "default" then
+	-- 	snd = dvar
+	-- elseif snd == "none" then
+	-- 	snd = nil
+	-- end
+	-- if snd then
+	-- 	timer.Simple(0.5, function() surface_PlaySound(snd) end)
+	-- end
 
 	timer.Simple(5, function()
 		if not (pEndBoard and pEndBoard:IsValid()) then
