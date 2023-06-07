@@ -738,7 +738,7 @@ GM.ResupplyBoxCooldown = 60
 -- GM.HumanWinSound = Sound("zombiesurvival/music_win.ogg")
 
 -- Sound played to a person when they die as a human.
--- GM.DeathSound = Sound("zombiesurvival/human_death_stinger.ogg")
+GM.DeathSound = Sound("zombiesurvival/human_death_stinger.ogg")
 
 -- Fetch map profiles and node profiles from noxiousnet database?
 GM.UseOnlineProfiles = true
