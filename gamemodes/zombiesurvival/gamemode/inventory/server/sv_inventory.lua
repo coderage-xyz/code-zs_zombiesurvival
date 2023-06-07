@@ -1,11 +1,18 @@
 local meta = FindMetaTable("Player")
 
 function meta:AddInventoryItem(item)
-	if not GAMEMODE:IsInventoryItem(item) then return false end
+	if not GAMEMODE:IsInventoryItem(item) then
+		return false
+	end
+
+	local type = GAMEMODE:GetInventoryItemType(item)
+	if type == INVCAT_WEAPONS and self:HasInventoryItem(item) then
+		return true
+	end
 
 	self.ZSInventory[item] = self.ZSInventory[item] and self.ZSInventory[item] + 1 or 1
 
-	if GAMEMODE:GetInventoryItemType(item) == INVCAT_TRINKETS then
+	if type == INVCAT_TRINKETS then
 		self:ApplyTrinkets()
 	end
 
