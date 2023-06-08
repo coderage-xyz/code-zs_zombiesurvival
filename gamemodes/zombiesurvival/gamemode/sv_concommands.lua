@@ -490,16 +490,16 @@ concommand.Add("zsgiveweapon", function(sender, command, arguments)
 
 	local weapon = sender:GetWeapon(invitem)
 
-	local ent = GAMEMODE:TryGetLockOnTrace(sender, arguments)
-	if ent and ent:IsValidLivingHuman() then
+	local target = Entity(tonumber(arguments[2]))
+	if target and target:IsValidLivingHuman() then
 		if IsValid(weapon) then
-			if ent:HasWeapon(weapon:GetClass()) then
+			if target:HasWeapon(weapon:GetClass()) then
 				GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "person_has_weapon"))
 			else
-				sender:GiveWeaponByType(weapon, ent, false)
+				sender:GiveWeaponByType(weapon, target, false)
 			end
 		else
-			sender:GiveInventoryItemByType(invitem, ent)
+			sender:GiveInventoryItemByType(invitem, target)
 		end
 	else
 		GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "no_person_in_range"))
@@ -522,16 +522,16 @@ concommand.Add("zsgiveweaponclip", function(sender, command, arguments)
 
 	local weapon = sender:GetWeapon(invitem)
 
-	local ent = GAMEMODE:TryGetLockOnTrace(sender, arguments)
-	if ent and ent:IsValidLivingHuman() then
+	local target = Entity(tonumber(arguments[2]))
+	if target and target:IsValidLivingHuman() then
 		if IsValid(weapon) then
-			if ent:HasWeapon(weapon:GetClass()) then
+			if target:HasWeapon(weapon:GetClass()) then
 				GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "person_has_weapon"))
 			else
-				sender:GiveWeaponByType(weapon, ent, true)
+				sender:GiveWeaponByType(weapon, target, true)
 			end
 		else
-			sender:GiveInventoryItemByType(invitem, ent)
+			sender:GiveInventoryItemByType(invitem, target)
 		end
 	else
 		GAMEMODE:ConCommandErrorMessage(sender, translate.ClientGet(sender, "no_person_in_range"))

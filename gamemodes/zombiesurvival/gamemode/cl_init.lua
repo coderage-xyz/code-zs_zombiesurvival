@@ -1606,8 +1606,28 @@ function GM:_HUDPaintBackground()
 	end
 end
 
-local function GiveWeapon()
-	RunConsoleCommand("zsgiveweapon", GAMEMODE.InventoryMenu.SelInv, GAMEMODE.HumanMenuLockOn and GAMEMODE.HumanMenuLockOn:EntIndex() or nil)
+local function GiveWeapon(giveClip)
+	local foundPlayers = {}
+	local localPly = LocalPlayer()
+	local localPlyPos = localPly:GetPos()
+	for _, ply in ipairs(player.GetAll()) do
+		if ply ~= localPly and localPlyPos:Distance(ply:GetPos()) <= 128 then
+			foundPlayers[#foundPlayers + 1] = ply
+		end
+	end
+
+	if #foundPlayers > 0 then
+		local menu = DermaMenu()
+		local function AddPlayerOption(ply)
+			menu:AddOption(ply:Nick(), function()
+				RunConsoleCommand(giveClip and "zsgiveweaponclip" or "zsgiveweapon", GAMEMODE.InventoryMenu.SelInv, ply:EntIndex())
+			end)
+		end
+		for _, ply in ipairs(foundPlayers) do
+			AddPlayerOption(ply)
+		end
+		menu:Open()
+	end
 end
 local function GiveWeaponClip()
 	RunConsoleCommand("zsgiveweaponclip", GAMEMODE.InventoryMenu.SelInv, GAMEMODE.HumanMenuLockOn and GAMEMODE.HumanMenuLockOn:EntIndex() or nil)
@@ -1680,7 +1700,9 @@ function GM:HumanMenu()
 	gwbtn:SetText("Give Item")
 	gwbtn:SetSize(panel:GetWide() - 8 * screenscale, hei - 4 * screenscale)
 	gwbtn:CenterHorizontal()
-	gwbtn.DoClick = GiveWeapon
+	gwbtn.DoClick = function()
+		GiveWeapon(false)
+	end
 	panel:AddItem(gwbtn)
 
 	gwbtn = vgui.Create("DButton")
@@ -1688,7 +1710,9 @@ function GM:HumanMenu()
 	gwbtn:SetText("Give Item and 5 clips")
 	gwbtn:SetSize(panel:GetWide() - 8 * screenscale, hei - 4 * screenscale)
 	gwbtn:CenterHorizontal()
-	gwbtn.DoClick = GiveWeaponClip
+	gwbtn.DoClick = function()
+		GiveWeapon(true)
+	end
 	panel:AddItem(gwbtn)
 
 	gwbtn = vgui.Create("DButton")
