@@ -389,11 +389,13 @@ concommand.Add("zsemptyclip", function(sender, command, arguments)
 
 	if not (sender:IsValid() and sender:Alive() and sender:Team() == TEAM_HUMAN) then return end
 
+	local weaponClass = arguments[1]
+
 	sender.NextEmptyClip = sender.NextEmptyClip or 0
 	if sender.NextEmptyClip <= CurTime() then
 		sender.NextEmptyClip = CurTime() + 0.1
 
-		local wep = sender:GetActiveWeapon()
+		local wep = weaponClass and sender:GetWeapon(weaponClass) or sender:GetActiveWeapon()
 		if wep:IsValid() and (not wep.NoMagazine and not wep.AmmoIfHas or wep.AllowEmpty) then
 			local primary = wep:ValidPrimaryAmmo()
 			if primary and 0 < wep:Clip1() then

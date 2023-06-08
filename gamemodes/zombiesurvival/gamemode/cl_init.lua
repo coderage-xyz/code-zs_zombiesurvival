@@ -1616,7 +1616,7 @@ local function DropWeapon()
 	RunConsoleCommand("zsdropweapon", GAMEMODE.InventoryMenu.SelInv)
 end
 local function EmptyClip()
-	RunConsoleCommand("zsemptyclip")
+	RunConsoleCommand("zsemptyclip", GAMEMODE.InventoryMenu.SelInv)
 end
 local function SellWeapon()
 	RunConsoleCommand("zs_sellitem", GAMEMODE.InventoryMenu.SelInv)
