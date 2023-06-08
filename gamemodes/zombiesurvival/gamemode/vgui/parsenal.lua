@@ -30,6 +30,10 @@ local function worthmenuDoClick()
 	GAMEMODE.ArsenalInterface:Close()
 end
 
+local function BuyCurrentAmmo()
+	RunConsoleCommand("zs_purchaseammo")
+end
+
 local function CanBuy(item, pan)
 	if item.NoClassicMode and GAMEMODE:IsClassicMode() then
 		return false
@@ -677,6 +681,28 @@ function GM:OpenArsenalMenu()
 	wsb:AlignRight(8)
 	wsb:AlignTop(8)
 	wsb.DoClick = worthmenuDoClick
+
+	local buyCurrentAmmoButton = EasyButton(topspace, "", 8, 4)
+	buyCurrentAmmoButton:SetFont("ZSHUDFontSmaller")
+	buyCurrentAmmoButton:SizeToContents()
+	buyCurrentAmmoButton:AlignLeft(8)
+	buyCurrentAmmoButton:AlignTop(8)
+	buyCurrentAmmoButton.DoClick = BuyCurrentAmmo
+	buyCurrentAmmoButton.Think = function()
+		local text = "Resupply"
+		local weapon = LocalPlayer():GetActiveWeapon()
+		if IsValid(weapon) then
+			local ammoType = game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()]
+			local ammoName = ammoType and self.AmmoNames[string.lower(ammoType)] or nil
+			if ammoType and ammoName then
+				text = text .. " [" .. ammoName .. "]"
+			end
+		end
+		if buyCurrentAmmoButton:GetText() ~= text then
+			buyCurrentAmmoButton:SetText(text)
+			buyCurrentAmmoButton:SizeToContents()
+		end
+	end
 
 	local bottomspace = vgui.Create("DPanel", frame)
 	bottomspace:SetWide(topspace:GetWide())
