@@ -1607,14 +1607,10 @@ function GM:_HUDPaintBackground()
 end
 
 local function GiveWeapon()
-	if GAMEMODE.HumanMenuLockOn then
-		RunConsoleCommand("zsgiveweapon", GAMEMODE.HumanMenuLockOn:EntIndex(), GAMEMODE.InventoryMenu.SelInv)
-	end
+	RunConsoleCommand("zsgiveweapon", GAMEMODE.InventoryMenu.SelInv, GAMEMODE.HumanMenuLockOn and GAMEMODE.HumanMenuLockOn:EntIndex() or nil)
 end
 local function GiveWeaponClip()
-	if GAMEMODE.HumanMenuLockOn then
-		RunConsoleCommand("zsgiveweaponclip", GAMEMODE.HumanMenuLockOn:EntIndex(), GAMEMODE.InventoryMenu.SelInv)
-	end
+	RunConsoleCommand("zsgiveweaponclip", GAMEMODE.InventoryMenu.SelInv, GAMEMODE.HumanMenuLockOn and GAMEMODE.HumanMenuLockOn:EntIndex() or nil)
 end
 local function DropWeapon()
 	RunConsoleCommand("zsdropweapon", GAMEMODE.InventoryMenu.SelInv)
