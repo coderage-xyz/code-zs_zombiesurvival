@@ -198,6 +198,8 @@ concommand.Add("zs_sellitem", function(sender, command, arguments)
 		sender:AddPoints(sellPrice)
 		sender:CenterNotify(COLOR_GREEN, "Sold " .. name .. " for " .. sellPrice .. " points!")
 		sender:SendLua("surface.PlaySound(\"buttons/button6.wav\")")
+	else
+		GAMEMODE:ConCommandErrorMessage(sender, "You can't sell this item.")
 	end
 end)
 
