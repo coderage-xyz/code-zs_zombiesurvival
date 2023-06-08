@@ -574,7 +574,7 @@ concommand.Add("zs_resupplyammotype", function(sender, command, arguments)
 	sender.ResupplyChoice = ammotype ~= "default" and ammotype or nil
 end)
 
-concommand.Add("zs_purchaseammo", function(sender, command, arguments)
+concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
 	if GAMEMODE.ZombieEscape then return end
 	if not (sender:IsValid() and sender:IsConnected() and sender:Alive() and sender:Team() == TEAM_HUMAN) then return end
 	if not sender:NearArsenalCrate() then
