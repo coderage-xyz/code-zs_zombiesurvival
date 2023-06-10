@@ -575,9 +575,12 @@ concommand.Add("zs_resupplyammotype", function(sender, command, arguments)
 end)
 
 concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
-	local ammoType = string.lower(arguments[1] or game.GetAmmoTypes()[sender:GetActiveWeapon():GetPrimaryAmmoType()])
-	if GAMEMODE.AmmoNames[ammoType] then
-		RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.AmmoNames[ammoType])
+	local weapon = sender:GetActiveWeapon()
+	if IsValid(weapon) then
+		local ammoType = string.lower(game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()])
+		if GAMEMODE.AmmoNames[ammoType] then
+			RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.AmmoNames[ammoType])
+		end
 	end
 end)
 
