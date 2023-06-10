@@ -110,7 +110,7 @@ GM.AmmoCache["sniperpenetratedround"]		= 1			-- Remote Det pack.
 GM.AmmoCache["grenade"]						= 1			-- Grenades.
 GM.AmmoCache["thumper"]						= 1			-- Gun turret.
 GM.AmmoCache["gravity"]						= 1			-- Unused.
-GM.AmmoCache["battery"]						= 25		-- Used with the Medical Kit.
+GM.AmmoCache["battery"]						= 23		-- Used with the Medical Kit.
 GM.AmmoCache["gaussenergy"]					= 2			-- Nails used with the Carpenter's Hammer.
 GM.AmmoCache["combinecannon"]				= 1			-- Not used.
 GM.AmmoCache["airboatgun"]					= 1			-- Arsenal crates.
@@ -771,3 +771,17 @@ GM.EndWavePointsBonusPerWave = 1
 
 -- Specify the key for rotating props
 GM.PropRotKey = IN_WALK
+
+GM.AmmoNames = {
+	["pistol"] = "ps_pistolammo",
+	["buckshot"] = "ps_shotgunammo",
+	["smg1"] = "ps_smgammo",
+	["ar2"] = "ps_assaultrifleammo",
+	["357"] = "ps_rifleammo",
+	["pulse"] = "ps_pulseammo",
+	["battery"] = "ps_25mkit",
+	["xbowbolt"] = "ps_crossbowammo",
+	["impactmine"] = "ps_impactmine",
+	["chemical"] = "ps_chemical",
+	["gaussenergy"] = "ps_nail"
+}

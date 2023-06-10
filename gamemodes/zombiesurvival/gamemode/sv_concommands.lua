@@ -575,29 +575,10 @@ concommand.Add("zs_resupplyammotype", function(sender, command, arguments)
 end)
 
 concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
-	if GAMEMODE.ZombieEscape then return end
-	if not (sender:IsValid() and sender:IsConnected() and sender:Alive() and sender:Team() == TEAM_HUMAN) then return end
-	if not sender:NearArsenalCrate() then
-		GAMEMODE:ConCommandErrorMessage(sender, translate.Get("need_to_be_near_arsenal_crate"))
-		return
+	local ammoType = string.lower(arguments[1] or game.GetAmmoTypes()[sender:GetActiveWeapon():GetPrimaryAmmoType()])
+	if GAMEMODE.AmmoNames[ammoType] then
+		RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.AmmoNames[ammoType])
 	end
-	if not gamemode.Call("PlayerCanPurchase", sender) then
-		GAMEMODE:ConCommandErrorMessage(sender, translate.Get("cant_purchase_right_now"))
-		return
-	end
-	local ammoType = arguments[1] or game.GetAmmoTypes()[sender:GetActiveWeapon():GetPrimaryAmmoType()]
-	if not ammoType then return end
-	local amount = GAMEMODE.AmmoCache[string.lower(ammoType)]
-	if not amount or (amount and amount <= 0) then return end
-	local cost = 4
-	if string.lower(ammoType) == "battery" then
-		cost = 15
-	end
-	if sender:GetPoints() < cost then return end
-	sender:TakePoints(cost)
-	sender:GiveAmmo(amount, ammoType)
-	local ammoName = GAMEMODE.AmmoNames[string.lower(ammoType)]
-	sender:PrintTranslatedMessage(HUD_PRINTTALK, "purchased_x_for_y_points", (ammoName and ("Resupply [" .. string.upper(ammoName) .. "]") or "ammo"), cost)
 end)
 
 concommand.Add("zs_shitmap_check", function(sender, command, arguments)

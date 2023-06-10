@@ -287,6 +287,19 @@ local function ItemPanelDoClick(self)
 end
 
 local function ArsenalMenuThink(self)
+	local itemInfo = GAMEMODE.Items[GAMEMODE.AmmoNames[GAMEMODE.CachedResupplyAmmoType]]
+	if itemInfo then
+		local text = "Purchase " .. (itemInfo and (itemInfo.Name .. " (" .. itemInfo.Price .. " Points)") or "Ammo")
+		if self.buyCurrentAmmoButton:GetText() ~= text then
+			self.buyCurrentAmmoButton:SetText(text)
+			self.buyCurrentAmmoButton:SizeToContents()
+		end
+		if not self.buyCurrentAmmoButton:IsVisible() then
+			self.buyCurrentAmmoButton:Show()
+		end
+	elseif self.buyCurrentAmmoButton:IsVisible() then
+		self.buyCurrentAmmoButton:Hide()
+	end
 end
 
 function GM:AttachKillicon(kitbl, itempan, mdlframe, ammo, missing_skill)
@@ -687,22 +700,9 @@ function GM:OpenArsenalMenu()
 	buyCurrentAmmoButton:SizeToContents()
 	buyCurrentAmmoButton:AlignLeft(8)
 	buyCurrentAmmoButton:AlignTop(8)
+	buyCurrentAmmoButton:Hide()
 	buyCurrentAmmoButton.DoClick = BuyCurrentAmmo
-	buyCurrentAmmoButton.Think = function()
-		local text = "Resupply"
-		local weapon = LocalPlayer():GetActiveWeapon()
-		if IsValid(weapon) then
-			local ammoType = game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()]
-			local ammoName = ammoType and self.AmmoNames[string.lower(ammoType)] or nil
-			if ammoType and ammoName then
-				text = text .. " [" .. ammoName .. "]"
-			end
-		end
-		if buyCurrentAmmoButton:GetText() ~= text then
-			buyCurrentAmmoButton:SetText(text)
-			buyCurrentAmmoButton:SizeToContents()
-		end
-	end
+	frame.buyCurrentAmmoButton = buyCurrentAmmoButton
 
 	local bottomspace = vgui.Create("DPanel", frame)
 	bottomspace:SetWide(topspace:GetWide())
