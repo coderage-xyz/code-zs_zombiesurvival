@@ -287,7 +287,7 @@ local function ItemPanelDoClick(self)
 end
 
 local function ArsenalMenuThink(self)
-	local itemInfo = GAMEMODE.Items[GAMEMODE.AmmoNames[GAMEMODE.CachedResupplyAmmoType]]
+	local itemInfo = GAMEMODE.Items[GAMEMODE.PSAmmoNames[GAMEMODE.CachedResupplyAmmoType]]
 	if itemInfo then
 		local text = "Purchase " .. (itemInfo and (itemInfo.Name .. " (" .. itemInfo.Price .. " Points)") or "Ammo")
 		if self.buyCurrentAmmoButton:GetText() ~= text then

@@ -578,8 +578,8 @@ concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
 	local weapon = sender:GetActiveWeapon()
 	if IsValid(weapon) then
 		local ammoType = string.lower(game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()])
-		if GAMEMODE.AmmoNames[ammoType] then
-			RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.AmmoNames[ammoType])
+		if GAMEMODE.PSAmmoNames[ammoType] then
+			RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.PSAmmoNames[ammoType])
 		end
 	end
 end)

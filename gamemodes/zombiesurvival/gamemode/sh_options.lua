@@ -772,7 +772,7 @@ GM.EndWavePointsBonusPerWave = 1
 -- Specify the key for rotating props
 GM.PropRotKey = IN_WALK
 
-GM.AmmoNames = {
+GM.PSAmmoNames = {
 	["pistol"] = "ps_pistolammo",
 	["buckshot"] = "ps_shotgunammo",
 	["smg1"] = "ps_smgammo",

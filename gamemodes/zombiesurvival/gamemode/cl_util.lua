@@ -7,8 +7,8 @@ concommand.Add("printdxinfo", function()
 end)
 
 concommand.Add("zs_quickbuyammo", function()
-	if GAMEMODE.AmmoNames[GAMEMODE.CachedResupplyAmmoType] then
-		RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.AmmoNames[GAMEMODE.CachedResupplyAmmoType])
+	if GAMEMODE.PSAmmoNames[GAMEMODE.CachedResupplyAmmoType] then
+		RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.PSAmmoNames[GAMEMODE.CachedResupplyAmmoType])
 	end
 end)
 
