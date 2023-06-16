@@ -62,9 +62,10 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 	if not hitent:IsValid() then return end
 
 	local owner = self:GetOwner()
+	local repaired = false
 
 	if hitent.HitByHammer and hitent:HitByHammer(self, owner, tr) then
-		return
+		repaired = true
 	end
 
 	if hitent:IsNailed() then
@@ -80,8 +81,11 @@ function SWEP:OnMeleeHit(hitent, hitflesh, tr)
 		hitent:SetBarricadeHealth(math.min(hitent:GetMaxBarricadeHealth(), hitent:GetBarricadeHealth() + math.min(hitent:GetBarricadeRepairs(), healstrength)))
 		local healed = hitent:GetBarricadeHealth() - oldhealth
 		hitent:SetBarricadeRepairs(math.max(hitent:GetBarricadeRepairs() - healed, 0))
-		self:PlayRepairSound(hitent)
 		gamemode.Call("PlayerRepairedObject", owner, hitent, healed, self)
+	end
+
+	if repaired then
+		self:PlayRepairSound(hitent)
 
 		local effectdata = EffectData()
 			effectdata:SetOrigin(tr.HitPos)

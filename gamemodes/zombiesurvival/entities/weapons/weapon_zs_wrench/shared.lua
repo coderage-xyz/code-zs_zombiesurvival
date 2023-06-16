@@ -27,7 +27,8 @@ SWEP.SwingRotation = Angle(30, -30, -30)
 SWEP.SwingOffset = Vector(0, -30, 0)
 SWEP.SwingHoldType = "grenade"
 
-SWEP.HealStrength = 13
+SWEP.HealStrength = 0.5
+SWEP.RepairStrength = 13
 
 SWEP.AllowQualityWeapons = true
 
