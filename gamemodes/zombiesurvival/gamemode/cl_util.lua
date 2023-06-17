@@ -12,6 +12,17 @@ concommand.Add("zs_quickbuyammo", function()
 	end
 end)
 
+concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
+	local weapon = sender:GetActiveWeapon()
+	if IsValid(weapon) then
+		local ammoType = string.lower(game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()])
+		print(ammoType, GAMEMODE.PSAmmoNames[ammoType])
+		if GAMEMODE.PSAmmoNames[ammoType] then
+			RunConsoleCommand("zs_pointsshopbuy", GAMEMODE.PSAmmoNames[ammoType])
+		end
+	end
+end)
+
 local function GetViewModelPosition(self, pos, ang)
 	return pos + ang:Forward() * -256, ang
 end
