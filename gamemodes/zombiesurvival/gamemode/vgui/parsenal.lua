@@ -31,7 +31,7 @@ local function worthmenuDoClick()
 end
 
 local function BuyCurrentAmmo()
-	RunConsoleCommand("zs_buycurrentammo")
+	RunConsoleCommand("zs_buycurrentammotype")
 end
 
 local function CanBuy(item, pan)

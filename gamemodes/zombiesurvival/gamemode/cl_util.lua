@@ -12,7 +12,7 @@ concommand.Add("zs_quickbuyammo", function()
 	end
 end)
 
-concommand.Add("zs_buycurrentammo", function(sender, command, arguments)
+concommand.Add("zs_buycurrentammotype", function(sender, command, arguments)
 	local weapon = sender:GetActiveWeapon()
 	if IsValid(weapon) then
 		local ammoType = string.lower(game.GetAmmoTypes()[weapon:GetPrimaryAmmoType()])
