@@ -1622,7 +1622,8 @@ local bossdrops = {
 
 function meta:MakeBossDrop()
 	local drop = table.Random(bossdrops)
-	local inv = string.sub(drop, 1, 4) ~= "weap"
+	local prefix = string.sub(drop, 1, 4)
+	local inv = prefix ~= "weap" and prefix ~= "tfa_"
 
 	local pos = self:LocalToWorld(self:OBBCenter())
 	local ent = ents.Create(inv and "prop_invitem" or "prop_weapon")

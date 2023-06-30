@@ -22,7 +22,10 @@ GM.Breakdowns = {}
 
 function GM:GetInventoryItemType(item)
 	for typ, aff in pairs(self.ZSInventoryPrefix) do
-		if string.sub(item, 1, 4) == aff then
+		local prefix = string.sub(item, 1, 4)
+		if prefix == "tfa_" then
+			return INVCAT_WEAPONS
+		elseif prefix == aff then
 			return typ
 		end
 	end
