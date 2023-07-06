@@ -303,17 +303,16 @@ local function ArsenalMenuThink(self)
 end
 
 function GM:AttachKillicon(kitbl, itempan, mdlframe, ammo, missing_skill)
-	local function imgAdj(img, maximgx, maximgy)
+	local function imgAdj(img, maxWidth, maxHeight)
 		img:SizeToContents()
-		local iwidth, height = img:GetSize()
-		if height > maximgy then
-			img:SetSize(maximgy / height * img:GetWide(), maximgy)
-			iwidth, height = img:GetSize()
+		local width, height = img:GetSize()
+		local aspectRatio = width / height
+		local maxAspectRatio = maxWidth / maxHeight
+		if aspectRatio > maxAspectRatio then
+			img:SetSize(maxWidth, maxWidth / aspectRatio)
+		else
+			img:SetSize(maxHeight * aspectRatio, maxHeight)
 		end
-		if iwidth > maximgx then
-			img:SetWidth(maximgx)
-		end
-
 		img:Center()
 	end
 
@@ -323,11 +322,13 @@ function GM:AttachKillicon(kitbl, itempan, mdlframe, ammo, missing_skill)
 		if kitbl[2] then
 			img:SetImageColor(kitbl[2])
 		end
-		if missing_skill then img:SetAlpha(50) end
-
+		if missing_skill then
+			img:SetAlpha(50)
+		end
 		imgAdj(img, mdlframe:GetWide() - 6, mdlframe:GetTall() - 3)
-		if ammo then img:SetSize(img:GetWide() + 3, img:GetTall() + 3) end
-
+		if ammo then
+			img:SetSize(img:GetWide() + 3, img:GetTall() + 3)
+		end
 		img:Center()
 		itempan.m_Icon = img
 	elseif #kitbl == 3 then
@@ -347,8 +348,6 @@ function GM:AttachKillicon(kitbl, itempan, mdlframe, ammo, missing_skill)
 		img:SetImage("zombiesurvival/padlock.png")
 		img:SetImageColor(Color(255, 30, 30))
 		imgAdj(img, mdlframe:GetWide(), mdlframe:GetTall())
-
-		img:Center()
 		itempan.m_Padlock = img
 	end
 end
