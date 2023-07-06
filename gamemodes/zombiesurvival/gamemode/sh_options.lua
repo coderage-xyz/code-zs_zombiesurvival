@@ -785,3 +785,18 @@ GM.PSAmmoNames = {
 	["chemical"] = "ps_chemical",
 	["gaussenergy"] = "ps_nail"
 }
+
+GM.ValidWeaponClasses = {
+	"weapon_",
+	"tfa_zs_"
+}
+
+function GM:IsValidWeaponType(class)
+	for _, str in ipairs(self.ValidWeaponClasses) do
+		if class:sub(1, #str) == str then
+			return true
+		end
+	end
+
+	return false
+end

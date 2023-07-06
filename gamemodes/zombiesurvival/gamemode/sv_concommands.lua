@@ -69,7 +69,7 @@ concommand.Add("zs_pointsshopbuy", function(sender, command, arguments)
 	if itemtab.Callback then
 		itemtab.Callback(sender)
 	elseif itemtab.SWEP then
-		if string.sub(itemtab.SWEP, 1, 6) ~= "weapon" then
+		if not GAMEMODE:IsValidWeaponType(itemtab.SWEP) then
 			if GAMEMODE:GetInventoryItemType(itemtab.SWEP) == INVCAT_TRINKETS and sender:HasInventoryItem(itemtab.SWEP) then
 				local wep = ents.Create("prop_invitem")
 				if wep:IsValid() then
