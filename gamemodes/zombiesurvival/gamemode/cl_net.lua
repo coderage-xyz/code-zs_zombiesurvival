@@ -145,7 +145,7 @@ net.Receive("zs_waveend", function(length)
 		GAMEMODE:CenterNotify(translate.Get("wave_x_is_over_sub"))
 
 		if MySelf:IsValid() and P_Team(MySelf) == TEAM_HUMAN then
-			if MySelf:GetZSSPRemaining() > 0 then
+			if not GAMEMODE.NoSkills and MySelf:GetZSSPRemaining() > 0 then
 				GAMEMODE:CenterNotify(translate.Format("unspent_skill_points_press_x", input.LookupBinding("gm_showspare1") or "F3"))
 			end
 
